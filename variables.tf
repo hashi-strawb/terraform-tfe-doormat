@@ -12,3 +12,9 @@ variable "tfc_workspace" {
   type        = string
   description = "The TFC Workspace to push credentials to"
 }
+
+variable "rotate_every_n_hours" {
+  type        = number
+  description = "How frequently should the provider run a doormat refresh and push new creds to TFC?"
+  default     = 1
+}
