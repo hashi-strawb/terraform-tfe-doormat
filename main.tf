@@ -7,11 +7,15 @@ terraform {
   }
 }
 
+resource "time_rotating" "rotate_every_n_hours" {
+  rotation_hours = var.rotate_every_n_hours
+}
+
 # Refresh our Doormat credentials
 resource "null_resource" "doormat-refresh" {
   # Run every time
   triggers = {
-    timestamp = timestamp()
+    rotation = time_rotating.rotate_every_n_hours.unix
   }
 
   provisioner "local-exec" {
@@ -24,7 +28,7 @@ resource "null_resource" "doormat-refresh" {
 resource "null_resource" "push-creds" {
   # Run every time
   triggers = {
-    timestamp = timestamp()
+    rotation = time_rotating.rotate_every_n_hours.unix
   }
 
   # Ensure we have valid Doormat creds first
