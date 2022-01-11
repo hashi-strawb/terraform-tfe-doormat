@@ -6,7 +6,8 @@ Example:
 
 ```
 module "creds" {
-  source        = "git@github.com:hashi-strawb/terraform-tfe-doormat.git"
+  source  = "hashi-strawb/doormat/tfe"
+  version = "0.3.0"
   aws_account   = "my_fancy_aws_account"
   tfc_org       = "fancycorp"
   tfc_workspace = "my_fancy_workspace"
