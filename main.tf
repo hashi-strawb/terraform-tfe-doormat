@@ -11,27 +11,14 @@ resource "time_rotating" "rotate_every_n_hours" {
   rotation_hours = var.rotate_every_n_hours
 }
 
-# Wait a random time before refreshing
-# so we don't hit Okta API rate limiting
-resource "random_integer" "wait_time" {
-  min = 1
-  max = 5000
-}
-resource "time_sleep" "wait" {
-  create_duration = "${random_integer.wait_time.result}ms"
-}
-
 # Refresh our Doormat credentials
 resource "null_resource" "doormat-refresh" {
-  depends_on = [time_sleep.wait]
-
-  # Run every time
   triggers = {
     rotation = time_rotating.rotate_every_n_hours.unix
   }
 
   provisioner "local-exec" {
-    command     = "doormat --smoke-test || doormat -r"
+    command     = "${path.module}/login.sh"
     interpreter = ["bash", "-c"]
   }
 }
