@@ -9,4 +9,4 @@ do
 done
 
 echo "Doormat login..."
-doormat login -v
+doormat login -v || doormat login
