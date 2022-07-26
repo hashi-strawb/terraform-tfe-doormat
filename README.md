@@ -1,3 +1,7 @@
+# Deprecated
+
+Please use https://docs.prod.secops.hashicorp.services/doormat/tf_provider/ instead
+
 # terraform-tfe-doormat
 Terraform module which allows you to deploy AWS credentials to a Terraform Cloud Workspace, using Doormat (an internal HashiCorp tool)
 
